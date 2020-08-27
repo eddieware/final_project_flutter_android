@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
         home: LoginPage(),
         theme: ThemeData(
           brightness: Brightness.dark,
-          primaryColor: Color.fromRGBO(42, 117, 188, 1),
-          accentColor: Color.fromRGBO(42, 117, 188, 1),
-          backgroundColor: Color.fromRGBO(28, 27, 27, 1),
+          //primaryColor: Color.fromRGBO(42, 117, 188, 1),
+          //accentColor: Color.fromRGBO(42, 117, 188, 1),
+          //backgroundColor: Color.fromRGBO(28, 27, 27, 1),
         ),
         initialRoute: "login",
         routes: getApplicationRoutes());

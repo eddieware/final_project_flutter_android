@@ -124,27 +124,28 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _emailTextField() {
     return TextFormField(
-        controller: _txtEmailCntrllr,
-        autocorrect: false,
-        style: TextStyle(color: Colors.white),
-        validator: (_input) {
-          return _input.length != 0 && _input.contains("@")
-              ? null
-              : "Please enter a valid email";
-        },
-        cursorColor: Colors.white,
-        decoration: InputDecoration(
-          hintText: 'test@test.com',
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
+      controller: _txtEmailCntrllr,
+      autocorrect: false,
+      style: TextStyle(color: Colors.white),
+      validator: (_input) {
+        return _input.length != 0 && _input.contains("@")
+            ? null
+            : "Please enter a valid email";
+      },
+      cursorColor: Colors.white,
+      decoration: InputDecoration(
+        hintText: 'test@test.com',
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.white),
         ),
-        onChanged: (_input) {
-          print(_input);
-          setState(() {
-            _email = _input;
-          });
-        });
+      ),
+      // onChanged: (_input) {
+      //   print(_input);
+      //   setState(() {
+      //     _email = _input;
+      //   });
+      // }
+    );
   }
 
   Widget _passwordTextField() {
@@ -153,14 +154,12 @@ class _LoginPageState extends State<LoginPage> {
       autocorrect: false,
       obscureText: true,
       style: TextStyle(color: Colors.white),
-      validator: (_input) {
-        return _input.length != 0 ? null : "Please enter a password";
-      },
-      onSaved: (_input) {
-        setState(() {
-          _password = _input;
-        });
-      },
+
+      // onSaved: (_input) {
+      //   setState(() {
+      //     _password = _input;
+      //   });
+      // },
       cursorColor: Colors.white,
       decoration: InputDecoration(
         hintText: "password",
@@ -171,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
       onChanged: (_input) {
         print(_input);
         setState(() {
-          _password = _input;
+          //  _password = _input;
         });
       },
     );
@@ -206,6 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                 print('${_txtPassCntrllr.text}');
                 if (_auth.user == null) {
                   print('Usuario no valido');
+                  _mostrarAlert(context);
                 } else {
                   print('Login Succesfully');
                   Navigator.pushNamed(context, '/profile');
@@ -213,5 +213,38 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
           );
+  }
+
+  void _mostrarAlert(BuildContext context) {
+    showDialog(
+        // requiere el context y se manda como argumento desde arriba
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)),
+            title: Text('Titulo'),
+            content: Column(
+              mainAxisSize: MainAxisSize
+                  .min, //para hacer que la columna se autoadapte al contenido
+              children: <Widget>[
+                Text('El usuario o contraseña no son Validos'),
+                FlutterLogo(size: 100)
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('OK')),
+              // FlatButton(
+              //     onPressed: () {
+              //       //funcion anonima
+
+              //     },
+              //     child: Text('OK')),
+            ],
+          );
+        });
   }
 }
