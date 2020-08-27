@@ -224,25 +224,26 @@ class _LoginPageState extends State<LoginPage> {
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)),
-            title: Text('Titulo'),
+            title: Text('Warning!'),
             content: Column(
               mainAxisSize: MainAxisSize
                   .min, //para hacer que la columna se autoadapte al contenido
               children: <Widget>[
-                Text('El usuario o contraseña no son Validos'),
+                Text(
+                  'El usuario o contraseña no son Validos',
+                  style: TextStyle(fontSize: 20),
+                ),
                 FlutterLogo(size: 100)
+                //Image.asset('')
               ],
             ),
             actions: <Widget>[
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('OK')),
-              // FlatButton(
-              //     onPressed: () {
-              //       //funcion anonima
-
-              //     },
-              //     child: Text('OK')),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(fontSize: 15),
+                  )),
             ],
           );
         });
