@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(title: Text('Welcome to your Profile')),
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // Container(
           //   padding: EdgeInsets.all(8.0),
@@ -65,6 +65,24 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               onTap: () {
                 Navigator.pushNamed(context, '/calif');
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Mapas',
+                style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/maps');
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Comentarios',
+                style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/comments');
               },
             ),
           ],
