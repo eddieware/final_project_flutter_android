@@ -13,43 +13,47 @@ class MapsPage extends StatefulWidget {
 class _MapsPageState extends State<MapsPage> {
   GoogleMapController _controller;
 
-  final CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(24.903623, 67.198367));
+  final CameraPosition _initialPosition = CameraPosition(
+      target: LatLng(20.64760073045063, -101.39031406491995), zoom: 17.4746);
 
   final List<Marker> markers = [];
 
   addMarker(cordinate) {
-    int id = Random().nextInt(100);
+    // int id = Random().nextInt(100);
 
     setState(() {
-      markers
-          .add(Marker(position: cordinate, markerId: MarkerId(id.toString())));
+      markers.add(Marker(
+        position: LatLng(20.64760073045063, -101.39031406491995),
+        markerId: MarkerId('Eduardos House'),
+      ));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: _initialPosition,
-        mapType: MapType.normal,
-        onMapCreated: (controller) {
-          setState(() {
-            _controller = controller;
-          });
-        },
-        markers: markers.toSet(),
-        onTap: (cordinate) {
-          _controller.animateCamera(CameraUpdate.newLatLng(cordinate));
-          addMarker(cordinate);
-        },
+      appBar: AppBar(
+        title: Text('Contact Us'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.animateCamera(CameraUpdate.zoomOut());
-        },
-        child: Icon(Icons.zoom_out),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Column(
+        children: <Widget>[
+          Text('data'),
+          Container(
+            height: 300,
+            child: GoogleMap(
+              initialCameraPosition: _initialPosition,
+              mapType: MapType.normal,
+              onMapCreated: (controller) {
+                setState(() {
+                  //_controller = controller;
+                  addMarker(LatLng(20.64760073045063, -101.39031406491995));
+                });
+              },
+              markers: markers.toSet(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
