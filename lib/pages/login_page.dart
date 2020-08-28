@@ -1,4 +1,5 @@
 import 'package:final_project_flutter_android/providers/auth_provider.dart';
+import 'package:final_project_flutter_android/providers/provider_usuario.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +23,13 @@ class _LoginPageState extends State<LoginPage> {
   // GlobalKey<FormState> _formKey;
   AuthProvider _auth;
 
-  // _LoginPageState() {
-  //   _formKey = GlobalKey<FormState>();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final superUsuarioInfo = Provider.of<UsuarioInfo>(context);
+
     _altoScreen = MediaQuery.of(context).size.height;
     _anchoScreen = MediaQuery.of(context).size.width;
-    _txtEmailCntrllr.text = 'test@test.com1';
+    _txtEmailCntrllr.text = 'test@test.com';
     _txtPassCntrllr.text = 'password';
 
     return Material(
@@ -42,7 +41,42 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center,
           child: ChangeNotifierProvider<AuthProvider>.value(
             value: AuthProvider.instance,
-            child: _loginPageUI(),
+            //child: _loginPageUI(),
+            child: Column(
+              children: <Widget>[
+                _loginPageUI(),
+                Container(
+                  height: _altoScreen * 0.06,
+                  width: _anchoScreen * 0.8,
+                  child: RaisedButton(
+                    child: Text(
+                      "LOGIN",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    onPressed: () async {
+                      //para evitar el bug y esperar a que regrese antes de hacer el salto
+                      await _auth.loginUserWithEmailAndPassword(
+                          _txtEmailCntrllr.text, _txtPassCntrllr.text, () {});
+                      //print('${_auth.user}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                      print('${_txtEmailCntrllr.text}');
+                      print('${_txtPassCntrllr.text}');
+                      if (_auth.user == null) {
+                        print('Usuario no valido');
+                        _mostrarAlert(context);
+                      } else {
+                        print('Login Succesfully');
+                        superUsuarioInfo.userInfo = _txtEmailCntrllr.text;
+                        Navigator.pushNamed(context, '/profile');
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -63,7 +97,10 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[_headingWidget(), _inputForm()],
+          children: <Widget>[
+            _headingWidget(),
+            _inputForm(),
+          ],
         ),
       );
     });
@@ -94,9 +131,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _inputForm() {
-    // print(_email);
-
-    // print(_password);
     return Container(
       //color: CupertinoColors.activeBlue,
 
@@ -113,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _emailTextField(),
             _passwordTextField(),
-            _loginButton(),
+            //_loginButton(),
 
             //_passwordTextField(),
           ],
@@ -127,11 +161,6 @@ class _LoginPageState extends State<LoginPage> {
       controller: _txtEmailCntrllr,
       autocorrect: false,
       style: TextStyle(color: Colors.white),
-      validator: (_input) {
-        return _input.length != 0 && _input.contains("@")
-            ? null
-            : "Please enter a valid email";
-      },
       cursorColor: Colors.white,
       decoration: InputDecoration(
         hintText: 'test@test.com',
@@ -139,12 +168,6 @@ class _LoginPageState extends State<LoginPage> {
           borderSide: BorderSide(color: Colors.white),
         ),
       ),
-      // onChanged: (_input) {
-      //   print(_input);
-      //   setState(() {
-      //     _email = _input;
-      //   });
-      // }
     );
   }
 
@@ -154,12 +177,6 @@ class _LoginPageState extends State<LoginPage> {
       autocorrect: false,
       obscureText: true,
       style: TextStyle(color: Colors.white),
-
-      // onSaved: (_input) {
-      //   setState(() {
-      //     _password = _input;
-      //   });
-      // },
       cursorColor: Colors.white,
       decoration: InputDecoration(
         hintText: "password",
@@ -167,12 +184,6 @@ class _LoginPageState extends State<LoginPage> {
           borderSide: BorderSide(color: Colors.white),
         ),
       ),
-      onChanged: (_input) {
-        print(_input);
-        setState(() {
-          //  _password = _input;
-        });
-      },
     );
   }
 
@@ -208,6 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                   _mostrarAlert(context);
                 } else {
                   print('Login Succesfully');
+                  //superUsuarioInfo.userInfo = usrCntrollr.text;
                   Navigator.pushNamed(context, '/profile');
                 }
               },
