@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
 
       return Container(
         //color: CupertinoColors.activeBlue,
-        height: _altoScreen * 0.60,
+        height: _altoScreen * 0.40,
         padding: EdgeInsets.symmetric(horizontal: _anchoScreen * 0.10),
         alignment: Alignment.center,
         child: Column(
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       //color: CupertinoColors.activeBlue,
 
-      height: _altoScreen * 0.26,
+      height: _altoScreen * 0.16,
       child: Form(
         // key: _formKey,
         onChanged: () {
