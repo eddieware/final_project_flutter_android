@@ -1,6 +1,6 @@
+import 'package:final_project_flutter_android/pages/calificaciones.dart';
 import 'package:final_project_flutter_android/pages/login_page.dart';
 import 'package:final_project_flutter_android/pages/maps_page.dart';
-import 'package:final_project_flutter_android/pages/profile_page.dart';
 import 'package:final_project_flutter_android/providers/provider_usuario.dart';
 import 'package:final_project_flutter_android/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Android Project App',
         // home: LoginPage(),
-        home: MapsPage(),
+        home: CalificacionesPage(),
         theme: ThemeData(
           brightness: Brightness.dark,
           //primaryColor: Color.fromRGBO(42, 117, 188, 1),
