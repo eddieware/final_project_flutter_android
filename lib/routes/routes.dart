@@ -6,11 +6,12 @@ import 'package:final_project_flutter_android/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
+  AsyncSnapshot snapshot;
   return <String, WidgetBuilder>{
     '/home': (BuildContext context) => LoginPage(),
     '/profile': (BuildContext context) => ProfilePage(),
     '/calif': (BuildContext context) =>
-        CalifPage(CalifPage.withSampleData().seriesList),
+        CalifPage(CalifPage.withSampleData(snapshot).seriesList),
     '/maps': (BuildContext context) => MapsPage(),
     '/comments': (BuildContext context) => ComentariosPage(),
   };

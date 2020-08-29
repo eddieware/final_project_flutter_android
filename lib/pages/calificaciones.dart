@@ -8,9 +8,9 @@ class CalifPage extends StatefulWidget {
   CalifPage(this.seriesList, {this.animate});
   //CalificacionesPage({Key key}) : super(key: key);
 
-  factory CalifPage.withSampleData() {
+  factory CalifPage.withSampleData(AsyncSnapshot snapshot) {
     return new CalifPage(
-      _createSampleData(),
+      _createSampleData(snapshot),
       // Disable animations for image tests.
       animate: false,
     );
@@ -18,10 +18,11 @@ class CalifPage extends StatefulWidget {
 
   @override
   _CalifPageState createState() => _CalifPageState();
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+  static List<charts.Series<OrdinalSales, String>> _createSampleData(
+      AsyncSnapshot snapshot) {
     final data = [
-      new OrdinalSales('Fernando', 55),
-      new OrdinalSales('Jose', 95),
+      new OrdinalSales('Fernando', 75),
+      new OrdinalSales('Jose', 55),
       new OrdinalSales('Edgar', 50),
     ];
 
@@ -51,18 +52,22 @@ class _CalifPageState extends State<CalifPage> {
               if (!snapshot.hasData) {
                 return Text('Loading...Please Wait...');
               } else {
-                _newMethod(snapshot);
+                //_newSerliesLiST(snapshot);
                 return Column(
                   children: <Widget>[
-                    // Text(snapshot.data.documents[0]['materia']),
-                    // Text(snapshot.data.documents[0]['calif'].toString())
+                    Text(snapshot.data.documents[0]['materia']),
+                    Text(snapshot.data.documents[0]['calif'].toString()),
+                    Text(snapshot.data.documents[1]['materia']),
+                    Text(snapshot.data.documents[1]['calif'].toString()),
+                    Text(snapshot.data.documents[2]['materia']),
+                    Text(snapshot.data.documents[2]['calif'].toString()),
                     SizedBox(
                       height: 16,
                     ),
                     Container(
                       // padding: EdgeInsets.all(16),
                       //color: Colors.green,
-                      height: 500,
+                      height: 400,
                       width: 400,
                       child: charts.BarChart(
                         widget.seriesList,
@@ -80,7 +85,7 @@ class _CalifPageState extends State<CalifPage> {
                     Container(
                       //color: Colors.amber,
                       child: Text(
-                        'Android Class',
+                        'Container for Table',
                         style: TextStyle(
                             fontSize: 20,
                             fontStyle: FontStyle.italic,
@@ -93,7 +98,25 @@ class _CalifPageState extends State<CalifPage> {
             }));
   }
 
-  void _newMethod(AsyncSnapshot snapshot) {}
+  _newSerliesLiST(AsyncSnapshot snapshot) {
+    final data = [
+      new OrdinalSales(snapshot.data.documents[0]['materia'],
+          snapshot.data.documents[0]['calif']),
+      new OrdinalSales(snapshot.data.documents[1]['materia'],
+          snapshot.data.documents[0]['calif']),
+    ];
+
+    return [
+      new charts.Series<OrdinalSales, String>(
+          id: 'Sales',
+          domainFn: (OrdinalSales sales, _) => sales.year,
+          measureFn: (OrdinalSales sales, _) => sales.sales,
+          data: data,
+          // Set a label accessor to control the text of the bar label.
+          labelAccessorFn: (OrdinalSales sales, _) =>
+              '${sales.sales.toString()}pts')
+    ];
+  }
 }
 
 class OrdinalSales {
