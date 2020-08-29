@@ -9,7 +9,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/home': (BuildContext context) => LoginPage(),
     '/profile': (BuildContext context) => ProfilePage(),
-    '/calif': (BuildContext context) => CalificacionesPage(),
+    '/calif': (BuildContext context) =>
+        CalifPage(CalifPage.withSampleData().seriesList),
     '/maps': (BuildContext context) => MapsPage(),
     '/comments': (BuildContext context) => ComentariosPage(),
   };

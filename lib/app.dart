@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Android Project App',
         // home: LoginPage(),
-        home: CalificacionesPage(),
+        home: CalifPage(CalifPage.withSampleData().seriesList),
         theme: ThemeData(
           brightness: Brightness.dark,
           //primaryColor: Color.fromRGBO(42, 117, 188, 1),
