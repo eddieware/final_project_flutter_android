@@ -9,12 +9,12 @@ import 'package:provider/provider.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AsyncSnapshot snapshot;
+    //AsyncSnapshot snapshot;
     return ChangeNotifierProvider(
       child: MaterialApp(
         title: 'Android Project App',
-        // home: LoginPage(),
-        home: CalifPage(CalifPage.withSampleData(snapshot).seriesList),
+        home: LoginPage(),
+        //home: CalifPage(CalifPage.withSampleData(snapshot).seriesList),
         theme: ThemeData(
           brightness: Brightness.dark,
           //primaryColor: Color.fromRGBO(42, 117, 188, 1),

@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                 //print('${_auth.user}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                 print('${_txtEmailCntrllr.text}');
                 print('${_txtPassCntrllr.text}');
-                if (_auth.user == null) {
+                if (_auth.user == null || _auth.status == AuthStatus.Error) {
                   print('Usuario no valido');
                   _mostrarAlert(context);
                 } else {
